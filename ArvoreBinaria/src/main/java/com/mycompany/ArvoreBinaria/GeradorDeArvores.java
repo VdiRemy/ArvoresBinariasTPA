@@ -14,7 +14,6 @@ import java.util.Random;
 import com.mycompany.ArvoreBinaria.ArvoreBinaria;
 
 //Aqui estou importando a interface IArvoreBinaria, a mesma que sua classe de Árvore Binaria deve implementar
-
 import com.mycompany.ArvoreBinaria.lib.IArvoreBinaria;
 
 /**

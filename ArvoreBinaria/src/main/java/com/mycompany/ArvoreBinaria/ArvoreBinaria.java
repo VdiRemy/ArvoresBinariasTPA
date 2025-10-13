@@ -11,7 +11,7 @@ import java.util.Comparator;
 
 /**
  *
- * @author victoriocarvalho
+ * @author VdiRemy
  */
 public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
     
@@ -110,10 +110,74 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
         Comparator<T> cmpAux = (Comparator<T>) comparador;
         return pesquisar(this.raiz, valor, cmpAux);
    }
-
+    
+    private No<T> encontrarMaximo(No<T> no){
+        No<T> atual = no;
+        
+        while (atual.getFilhoDireita() != null){
+            atual = atual.getFilhoDireita();
+        }
+        return atual;
+    }
+    
+    
+    private No<T> remover(No<T> raizSubarvore, T valor){
+        if (raizSubarvore == null){
+            return null;
+        }
+        int cmp = this.comparador.compare(valor, raizSubarvore.getValor());
+        
+        if (cmp < 0){
+           //valor é menor
+           //o filho esquerdo assume valor da recursão
+           No<T> novoEsquerda = remover(raizSubarvore.getFilhoEsquerda(), valor);
+           raizSubarvore.setFilhoEsquerda(novoEsquerda);
+           return raizSubarvore;
+        }
+        
+        else if (cmp > 0){
+            //valor maior
+            //mema fita mas da direita
+            No<T> novoDireita = remover(raizSubarvore.getFilhoDireita(), valor);
+            raizSubarvore.setFilhoDireita(novoDireita);
+            return raizSubarvore;
+        }
+        
+        else{
+            //sem filhos ou um filho
+            if (raizSubarvore.getFilhoEsquerda() == null) {
+                //se esquerdo ´é nulo, temos 0 ou 1 filho direito
+                return raizSubarvore.getFilhoDireita();
+            }
+            
+            if (raizSubarvore.getFilhoDireita() == null) {
+               return raizSubarvore.getFilhoEsquerda();
+            }
+            
+            //dois filhos
+            No<T> antecessor = encontrarMaximo(raizSubarvore.getFilhoEsquerda());
+            
+            raizSubarvore.setValor(antecessor.getValor());
+            
+            No<T> novoEsquerda = remover(raizSubarvore.getFilhoEsquerda(), antecessor.getValor());
+            
+            raizSubarvore.setFilhoEsquerda(novoEsquerda);
+            
+            return raizSubarvore;
+        }
+    }
     @Override
     public T remover(T valor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        T valorRemovido = pesquisar(valor);
+        
+        if (valorRemovido == null){
+            return null;
+        }
+        
+        this.raiz = this.remover(this.raiz, valor);
+        
+        return valorRemovido;
+        
     }
     
     private int altura(No<T> no){
@@ -156,9 +220,22 @@ public class ArvoreBinaria<T> implements IArvoreBinaria<T> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.    
     }
     
+    private String caminharEmOrdem(No<T> no){
+        if (no==null){
+            return "";
+        }
+        
+        String resultadoEsquerda = caminharEmOrdem(no.getFilhoEsquerda());
+        String valorAtual = no.getValor().toString() + " \n ";
+        String resultadoDireita =  caminharEmOrdem(no.getFilhoDireita());
+        
+        return resultadoEsquerda + valorAtual + resultadoDireita;
+    }
+    
     @Override
     public String caminharEmOrdem() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.    
+        String resultado = caminharEmOrdem(this.raiz).trim();
+        return "[" + resultado + "]";
     }
         
 }
