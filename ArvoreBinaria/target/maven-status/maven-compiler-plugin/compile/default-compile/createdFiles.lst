@@ -1,8 +1,10 @@
 ScoobyDoo\AppDooStore.class
 com\mycompany\ArvoreBinaria\Principal.class
 ScoobyDoo\Strain.class
+com\mycompany\ArvoreBinaria\ArvoreAvl.class
 com\mycompany\ArvoreBinaria\ComparadorAlunoPorMatricula.class
 com\mycompany\ArvoreBinaria\No.class
+com\mycompany\ArvoreBinaria\No_AVL.class
 ScoobyDoo\ComparadorStrainPorNome.class
 ScoobyDoo\ComparadorStrainPorID.class
 com\mycompany\ArvoreBinaria\GeradorDeArvores.class
@@ -11,4 +13,5 @@ com\mycompany\ArvoreBinaria\ArvoreBinaria.class
 com\mycompany\ArvoreBinaria\Aluno.class
 com\mycompany\ArvoreBinaria\lib\IArvoreBinaria.class
 com\mycompany\ArvoreBinaria\ComparadorAlunoPorNome.class
+com\mycompany\ArvoreBinaria\AppRelatorioAVL.class
 com\mycompany\ArvoreBinaria\AppRelatorioArvoreBinaria.class
